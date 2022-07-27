@@ -5,7 +5,6 @@ import java.util.List;
 public class Case {
     private int caseNumber;
     private int caseValue;
-    private String display;
     private boolean isOpen = false;
 
     public Case(int caseNumber, int caseValue) {
