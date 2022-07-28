@@ -1,3 +1,10 @@
+package com.dond.application;
+
+import com.dond.models.Banker;
+import com.dond.models.Case;
+import com.dond.ui.UserInput;
+import com.dond.ui.UserOutput;
+
 import java.io.IOException;
 import java.util.*;
 
@@ -20,35 +27,26 @@ public class Game {
     }
 
     public void startGame(){
-        Banker banker = new Banker();
-        printRules();
-        caseSetup(cases, values);
-        displayGameBoard();
-        Scanner input = new Scanner(System.in);
-        System.out.print("Select a case to start the game: ");
-        playerCaseNumber = Integer.parseInt(input.nextLine());
-        System.out.println("You have selected case # " + playerCaseNumber + ".");
+        caseSetup(cases);
+        UserOutput.displayGameBoard(cases, values);
+        playerCaseNumber = UserInput.selectFirstCase();
         cases[playerCaseNumber-1].setOpen(true);
-        promptEnterToUpdateGameBoard(playerCaseNumber);
-
+        UserInput.promptEnterToUpdateGameBoard();
+        updateGameBoard(playerCaseNumber);
     }
 
-    public static void printRules(){
-        System.out.println("\n\nWelcome to DEAL OR NO DEAL!\n");
-        System.out.println("How To Play:\n\t- There are 26 briefcases on the game board.");
-        System.out.println("\t- Each case contains a hidden amount of cash inside.");
-        System.out.println("\t- Choose your case to start the game. You will not open this case \n" +
-                "\t\tuntil the end of the game.");
-        System.out.println("\t- Each time you open a case, the cash amount inside will be revealed and \n" +
-                "\t\tremoved from the game board.");
-        System.out.println("\t- After opening several cases, the Banker will call you with an offer \n" +
-                "\t\tto purchase your unopened case.");
-        System.out.println("\t- You can accept the offer (DEAL!), or decline and continue playing (NO DEAL!)");
-        System.out.println("\t- At the end of the game, we will open up your case and see who got \n" +
-                "\t\tthe better deal!");
+    public void startRound(int roundNumber, int casesToOpen){
+        int casesPerRound = casesToOpen;
+        UserOutput.displayNewRound(roundNumber, casesPerRound);
+        for (int i = 1; i <= casesPerRound; i++){
+            int selectedCaseNumber = selectACase();
+            openCase(selectedCaseNumber);
+            casesToOpen--;
+            UserOutput.displayRoundProgress(roundNumber,casesToOpen);
+        }
     }
 
-    public static void caseSetup(Case[] cases, List<Integer> values){
+    public static void caseSetup(Case[] cases){
         List<Integer> valuesShuffled = Arrays.asList(1, 2, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000,
                 25000, 50000,75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000);;
         Collections.shuffle(valuesShuffled);
@@ -56,7 +54,7 @@ public class Game {
             cases[i] = new Case(i+1, valuesShuffled.get(i));
         }
     }
-    public void displayGameBoard(){
+/*    public void displayGameBoard(){
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("                         DEAL OR NO DEAL: CURRENT BOARD                               ");
         System.out.println("--------------------------------------------------------------------------------------");
@@ -105,7 +103,7 @@ public class Game {
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(11)), displayValue(values.get(24)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(12)), displayValue(values.get(25)));
         System.out.println("\n--------------------------------------------------------------------------------------");
-    }
+    }*/
 
     public static String displayValue(int caseValue){
         String displayValue = Integer.toString(caseValue);
@@ -117,15 +115,15 @@ public class Game {
 
     public int selectACase() {
         Scanner input = new Scanner(System.in);
-        System.out.printf("Select a case # : ");
+        System.out.printf("\n>>>Select a case # : ");
         int selectedCaseNumber = Integer.parseInt(input.nextLine());
-        System.out.println("You have selected case # " + selectedCaseNumber + ".");
+        System.out.println("\n\t\tYou have selected case # " + selectedCaseNumber + ".");
         Game.promptEnterToOpen();
         return selectedCaseNumber;
     }
 
     public static void promptEnterToOpen(){
-        System.out.println("\nPress \"ENTER\" to open the case >>>");
+        System.out.print("\n>>>Press \"ENTER\" to open the case>>>");
         try {
             System.in.read();
         } catch (IOException e){
@@ -136,39 +134,52 @@ public class Game {
     public void openCase(int selectedCaseNumber){
         int value = cases[selectedCaseNumber-1].getCaseValue();
         cases[selectedCaseNumber-1].setOpen(true);
-        System.out.println("Case # " + selectedCaseNumber + " contains $" + value);
-        promptEnterToUpdateGameBoard(selectedCaseNumber);
+        System.out.println("\n\t\tCase # " + selectedCaseNumber + " contains $" + value +".");
+        UserInput.promptEnterToUpdateGameBoard();
+        updateGameBoard(selectedCaseNumber);
     }
 
-    public void promptEnterToUpdateGameBoard(int selectedCaseNumber){
-        System.out.println("\nPress \"ENTER\" to update the Game Board >>>");
-        try {
-            System.in.read();
-            if (selectedCaseNumber != playerCaseNumber) {
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) == cases[selectedCaseNumber - 1].getCaseValue()) {
-                        values.set(i, 0);
-                    }
+    public void updateGameBoard(int selectedCaseNumber){
+        if (selectedCaseNumber != playerCaseNumber) {
+            for (int i = 0; i < values.size(); i++) {
+                if (values.get(i) == cases[selectedCaseNumber - 1].getCaseValue()) {
+                    values.set(i, 0);
                 }
             }
-            displayGameBoard(cases, values, playerCaseNumber);
-        } catch (IOException e){
-            e.getMessage();
         }
+        UserOutput.displayGameBoard(cases, values, playerCaseNumber);
     }
 
+//    public void promptEnterToUpdateGameBoard(int selectedCaseNumber){
+//        System.out.print("\n>>>Press \"ENTER\" to update the Game Board>>>");
+//        try {
+//            System.in.read();
+//            if (selectedCaseNumber != playerCaseNumber) {
+//                for (int i = 0; i < values.size(); i++) {
+//                    if (values.get(i) == cases[selectedCaseNumber - 1].getCaseValue()) {
+//                        values.set(i, 0);
+//                    }
+//                }
+//            }
+//            displayGameBoard(cases, values, playerCaseNumber);
+//        } catch (IOException e){
+//            e.getMessage();
+//        }
+//    }
+
     public void dealAccepted(int offerPrice){
-        System.out.println("\nYou have accepted the Banker's offer for $" + offerPrice);
-        System.out.println("Now let's find out how much money was inside your case...");
+        System.out.println("\n\t\tYou have accepted the Banker's offer for $" + offerPrice);
+        System.out.println("\t\tNow let's find out how much money was inside your case...");
         promptEnterToOpen();
         int playerCaseValue = cases[playerCaseNumber-1].getCaseValue();
-        System.out.println("Case # " + playerCaseNumber + " contains $" + playerCaseValue);
+        System.out.println("\n\t\tCase # " + playerCaseNumber + " contains $" + playerCaseValue);
         if (playerCaseValue > offerPrice){
-            System.out.println("Better luck next time!");
+            System.out.println("\n\t\tBetter luck next time! :(");
         } else {
-            System.out.println("Whew, looks like you made a good deal!");
+            System.out.println("\n\t\tWhew, looks like you made a good deal! :)");
         }
-        System.out.println("\n Game over. Thanks for playing!");
+        System.out.println("\n\n-----------------------------------------------------------------------------------");
+        System.out.println("                        Game over. Thank you for playing! ");
         System.exit(1);
 
     }

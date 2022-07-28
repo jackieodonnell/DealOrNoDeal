@@ -36,14 +36,14 @@
   </component>
   <component name="RunManager" selected="Application.Play">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Game" />
+      <option name="MAIN_CLASS_NAME" value="application.Game" />
       <module name="DealOrNoDeal" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="Play" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Play" />
+      <option name="MAIN_CLASS_NAME" value="com.dond.Play" />
       <module name="DealOrNoDeal" />
       <method v="2">
         <option name="Make" enabled="true" />
