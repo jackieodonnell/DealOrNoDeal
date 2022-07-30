@@ -15,10 +15,6 @@ public class Case {
         isOpen = false;
     }
 
-    public int getCaseNumber() {
-        return caseNumber;
-    }
-
     public int getCaseValue() {
         return caseValue;
     }

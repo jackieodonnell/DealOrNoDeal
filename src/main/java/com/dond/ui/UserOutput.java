@@ -80,11 +80,15 @@ public class UserOutput {
     }
 
     public static void displayNewRound(int roundNumber, int casesToOpen){
-        System.out.println("\nROUND " + roundNumber+": OPEN " + casesToOpen + " CASES");
+        System.out.println("ROUND " + roundNumber+": OPEN " + casesToOpen + " CASES");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
     public static void displayRoundProgress(int roundNumber,int casesToOpen){
-        System.out.println("\nROUND " + roundNumber+ ": " + casesToOpen + " more cases to open.");
+        System.out.println("ROUND " + roundNumber+ ": " + casesToOpen + " more case(s) to open.");
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+    }
+    public static void displayFinalRound(int roundNumber, int casesToOpen){
+        System.out.println("FINAL ROUND: OPEN " + casesToOpen + " CASES");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 

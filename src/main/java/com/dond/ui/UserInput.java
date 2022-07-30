@@ -1,7 +1,5 @@
 package com.dond.ui;
 
-import com.dond.application.Game;
-
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -35,6 +33,14 @@ public class UserInput {
 
     public static int selectACase() {
         System.out.printf("\n>>>Select a case # : ");
+        int selectedCaseNumber = Integer.parseInt(input.nextLine());
+        System.out.println("\n\t\tYou have selected case # " + selectedCaseNumber + ".");
+        promptEnterToOpen();
+        return selectedCaseNumber;
+    }
+
+    public static int selectFinalCase() {
+        System.out.printf("\n>>>Select the last remaining case # : ");
         int selectedCaseNumber = Integer.parseInt(input.nextLine());
         System.out.println("\n\t\tYou have selected case # " + selectedCaseNumber + ".");
         promptEnterToOpen();
