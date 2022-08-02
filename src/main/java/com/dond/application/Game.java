@@ -3,12 +3,6 @@ package com.dond.application;
 import com.dond.models.Case;
 import com.dond.ui.UserInput;
 import com.dond.ui.UserOutput;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -44,7 +38,7 @@ public class Game {
         }
     }
 
-    public void startRound(int roundNumber, int casesToOpen) throws FileNotFoundException, JavaLayerException {
+    public void startRound(int roundNumber, int casesToOpen){
         int casesPerRound = casesToOpen;
         UserOutput.displayGameBoard(cases, values, playerCaseNumber);
         UserOutput.displayNewRound(roundNumber, casesPerRound);
@@ -55,10 +49,10 @@ public class Game {
             UserOutput.displayRoundProgress(roundNumber,casesToOpen);
         }
     }
-    public void finalRound(int roundNumber, int casesToOpen) throws FileNotFoundException, JavaLayerException {
+    public void finalRound(int roundNumber, int casesToOpen){
         int casesPerRound = casesToOpen;
         UserOutput.displayGameBoard(cases, values, playerCaseNumber);
-        UserOutput.displayFinalRound(roundNumber, casesPerRound);
+        UserOutput.displayFinalRound(casesPerRound);
         for (int i = 1; i <= casesPerRound; i++){
             int selectedCaseNumber = UserInput.selectACase();
             openCase(selectedCaseNumber);
@@ -76,19 +70,10 @@ public class Game {
         }
     }
 
-    public void openCase(int selectedCaseNumber) throws FileNotFoundException, JavaLayerException {
+    public void openCase(int selectedCaseNumber){
         int value = cases[selectedCaseNumber-1].getCaseValue();
         cases[selectedCaseNumber-1].setOpen(true);
         System.out.println("\n\t\tCase # " + selectedCaseNumber + " contains $" + value +"." + "\n ");
-/*        FileInputStream aww = new FileInputStream("Aww.mp3");
-        Player playAww = new Player(aww);
-        FileInputStream applause = new FileInputStream("claps3.mp3");
-        Player playApplause = new Player(applause);
-        if (value >= 1000){
-            playAww.play();
-        } else {
-            playApplause.play();
-        }*/
         updateGameBoard(selectedCaseNumber);
     }
 
@@ -119,7 +104,7 @@ public class Game {
         System.exit(1);
     }
 
-    public void finalOfferDeclined(int offerPrice) throws FileNotFoundException, JavaLayerException {
+    public void finalOfferDeclined(int offerPrice){
         System.out.println("\n\t\tYou have declined the Banker's final offer for $" + offerPrice);
         System.out.println("\t\tThere is one remaining case on the board.");
         UserOutput.displayGameBoard(cases, values, playerCaseNumber);

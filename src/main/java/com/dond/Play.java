@@ -3,12 +3,9 @@ package com.dond;
 import com.dond.application.Game;
 import com.dond.models.Banker;
 import com.dond.ui.UserOutput;
-import javazoom.jl.decoder.JavaLayerException;
-
-import java.io.FileNotFoundException;
 
 public class Play {
-    public static void main(String[] args) throws FileNotFoundException, JavaLayerException {
+    public static void main(String[] args){
         Game game = new Game();
         Banker banker = new Banker();
         UserOutput.printRules();

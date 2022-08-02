@@ -1,25 +1,18 @@
 package com.dond.models;
 
 import com.dond.application.Game;
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class Banker {
 
 
-    public void bankerCalling() throws FileNotFoundException, JavaLayerException {
+    public void bankerCalling(){
         System.out.println("\n\t\t*******************************");
         System.out.println("\t\t*** RING RING *** RING RING ***");
         System.out.println("\t\t*******************************");
         System.out.println("\n\t\tThe Banker is calling!");
-        FileInputStream phone = new FileInputStream("Phone.mp3");
-        Player playPhone = new Player(phone);
-        playPhone.play();
+
         System.out.print("\n>>>Press \"ENTER\" to answer the phone>>>");
         try {
             System.in.read();
@@ -128,7 +121,7 @@ public class Banker {
         return offerPrice;
     }
 
-    public int getFinalOffer(Game game, int previousOffer) throws FileNotFoundException, JavaLayerException {
+    public int getFinalOffer(Game game, int previousOffer){
         System.out.println("\n\t\tThe Banker would like to make one last offer on your case, Case # "
                 + game.getPlayerCaseNumber() + "...");
 

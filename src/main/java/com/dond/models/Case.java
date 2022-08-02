@@ -1,9 +1,5 @@
 package com.dond.models;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public class Case {
     private int caseNumber;
     private int caseValue;

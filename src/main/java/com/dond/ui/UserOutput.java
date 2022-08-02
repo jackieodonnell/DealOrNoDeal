@@ -1,10 +1,7 @@
 package com.dond.ui;
 
-import com.dond.application.Game;
 import com.dond.models.Case;
-
 import java.util.List;
-import java.util.Scanner;
 
 public class UserOutput {
 
@@ -87,7 +84,7 @@ public class UserOutput {
         System.out.println("ROUND " + roundNumber+ ": " + casesToOpen + " more case(s) to open.");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    public static void displayFinalRound(int roundNumber, int casesToOpen){
+    public static void displayFinalRound(int casesToOpen){
         System.out.println("FINAL ROUND: OPEN " + casesToOpen + " CASES");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
