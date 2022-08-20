@@ -13,9 +13,15 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="JUnit4 Test Class" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="JavaAutoRunManager">
+    <enabled-run-configurations>
+      <run-configuration type="JUnit" name="BankerTests.makeOffer_pass_in_test_returns_correct_offer" />
+    </enabled-run-configurations>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -28,13 +34,31 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="" />
     </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.dond.models" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.Play">
+  <component name="RunManager" selected="Application.DealOrNoDealCLI">
+    <configuration name="DealOrNoDealCLI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.dond.DealOrNoDealCLI" />
+      <module name="DealOrNoDeal" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="application.Game" />
       <module name="DealOrNoDeal" />
@@ -42,16 +66,26 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Play" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.dond.Play" />
+    <configuration name="BankerTests.makeOffer_pass_in_test_returns_correct_offer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="DealOrNoDeal" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.dond.models.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.dond.models" />
+      <option name="MAIN_CLASS_NAME" value="com.dond.models.BankerTests" />
+      <option name="METHOD_NAME" value="makeOffer_pass_in_test_returns_correct_offer" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Play" />
+        <item itemvalue="Application.DealOrNoDealCLI" />
+        <item itemvalue="JUnit.BankerTests.makeOffer_pass_in_test_returns_correct_offer" />
         <item itemvalue="Application.Game" />
       </list>
     </recent_temporary>

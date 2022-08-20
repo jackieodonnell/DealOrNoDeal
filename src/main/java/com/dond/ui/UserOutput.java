@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UserOutput {
 
-    public static void printRules(){
+    public static void printRules() {
         System.out.println("\n\nWelcome to DEAL OR NO DEAL!\n");
         System.out.println("How to Play:\n\t- There are 26 briefcases on the game board.");
         System.out.println("\t- Each case contains a hidden amount of cash inside.");
@@ -19,56 +19,39 @@ public class UserOutput {
         System.out.println("\t- At the end of the game, we will open up your case and find out who got \n" +
                 "\t\tthe better deal!");
     }
-    public static void displayGameBoard(Case[] cases, List<Integer> values ){
+
+    public static void displayGameBoard(Case[] cases, List<Integer> values) {
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("                         DEAL OR NO DEAL: CURRENT BOARD                               ");
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.printf("$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(0)), cases[0].getDisplay(), cases[1].getDisplay(),
-                cases[2].getDisplay(), cases[3].getDisplay(), cases[4].getDisplay(),displayValue(values.get(13)));
+                cases[2].getDisplay(), cases[3].getDisplay(), cases[4].getDisplay(), displayValue(values.get(13)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(1)), displayValue(values.get(14)));
         System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(2)), cases[5].getDisplay(), cases[6].getDisplay(),
-                cases[7].getDisplay(), cases[8].getDisplay(), cases[9].getDisplay(),displayValue(values.get(15)));
+                cases[7].getDisplay(), cases[8].getDisplay(), cases[9].getDisplay(), displayValue(values.get(15)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(3)), displayValue(values.get(16)));
         System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(4)), cases[10].getDisplay(), cases[11].getDisplay(),
-                cases[12].getDisplay(), cases[13].getDisplay(), cases[14].getDisplay(),displayValue(values.get(17)));
+                cases[12].getDisplay(), cases[13].getDisplay(), cases[14].getDisplay(), displayValue(values.get(17)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(5)), displayValue(values.get(18)));
         System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(6)), cases[15].getDisplay(), cases[16].getDisplay(),
-                cases[17].getDisplay(), cases[18].getDisplay(), cases[19].getDisplay(),displayValue(values.get(19)));
+                cases[17].getDisplay(), cases[18].getDisplay(), cases[19].getDisplay(), displayValue(values.get(19)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(7)), displayValue(values.get(20)));
         System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(8)), cases[20].getDisplay(), cases[21].getDisplay(),
-                cases[22].getDisplay(), cases[23].getDisplay(), cases[24].getDisplay(),displayValue(values.get(21)));
+                cases[22].getDisplay(), cases[23].getDisplay(), cases[24].getDisplay(), displayValue(values.get(21)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(9)), displayValue(values.get(22)));
         System.out.printf("\n$%-37s%-37s$%-15s", displayValue(values.get(10)), cases[25].getDisplay(), displayValue(values.get(23)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(11)), displayValue(values.get(24)));
         System.out.printf("\n$%-74s$%-15s", displayValue(values.get(12)), displayValue(values.get(25)));
         System.out.println("\n--------------------------------------------------------------------------------------");
     }
-    public static void displayGameBoard(Case[] cases, List<Integer> values, int playerCaseNumber){
+
+    public static void displayGameBoard(Case[] cases, List<Integer> values, int playerCaseNumber) {
+        displayGameBoard(cases, values);
+        System.out.println("                                 Your Case #: " + playerCaseNumber);
         System.out.println("--------------------------------------------------------------------------------------");
-        System.out.println("                         DEAL OR NO DEAL: CURRENT BOARD                               ");
-        System.out.println("                                 Your Case #: " + playerCaseNumber                     );
-        System.out.println("--------------------------------------------------------------------------------------");
-        System.out.printf("$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(0)), cases[0].getDisplay(), cases[1].getDisplay(),
-                cases[2].getDisplay(), cases[3].getDisplay(), cases[4].getDisplay(),displayValue(values.get(13)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(1)), displayValue(values.get(14)));
-        System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(2)), cases[5].getDisplay(), cases[6].getDisplay(),
-                cases[7].getDisplay(), cases[8].getDisplay(), cases[9].getDisplay(),displayValue(values.get(15)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(3)), displayValue(values.get(16)));
-        System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(4)), cases[10].getDisplay(), cases[11].getDisplay(),
-                cases[12].getDisplay(), cases[13].getDisplay(), cases[14].getDisplay(),displayValue(values.get(17)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(5)), displayValue(values.get(18)));
-        System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(6)), cases[15].getDisplay(), cases[16].getDisplay(),
-                cases[17].getDisplay(), cases[18].getDisplay(), cases[19].getDisplay(),displayValue(values.get(19)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(7)), displayValue(values.get(20)));
-        System.out.printf("\n$%-25s%-6s%-6s%-6s%-6s%-25s$%-15s", displayValue(values.get(8)), cases[20].getDisplay(), cases[21].getDisplay(),
-                cases[22].getDisplay(), cases[23].getDisplay(), cases[24].getDisplay(),displayValue(values.get(21)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(9)), displayValue(values.get(22)));
-        System.out.printf("\n$%-37s%-37s$%-15s", displayValue(values.get(10)), cases[25].getDisplay(), displayValue(values.get(23)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(11)), displayValue(values.get(24)));
-        System.out.printf("\n$%-74s$%-15s", displayValue(values.get(12)), displayValue(values.get(25)));
-        System.out.println("\n--------------------------------------------------------------------------------------");
     }
-    public static String displayValue(int caseValue){
+
+    public static String displayValue(int caseValue) {
         String displayValue = Integer.toString(caseValue);
         if (displayValue.equals("0")) {
             displayValue = "------";
@@ -76,17 +59,59 @@ public class UserOutput {
         return displayValue;
     }
 
-    public static void displayNewRound(int roundNumber, int casesToOpen){
-        System.out.println("ROUND " + roundNumber+": OPEN " + casesToOpen + " CASES");
+    public static void displayNewRound(int roundNumber, int casesToOpen) {
+        System.out.println("ROUND " + roundNumber + ": OPEN " + casesToOpen + " CASES");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    public static void displayRoundProgress(int roundNumber,int casesToOpen){
-        System.out.println("ROUND " + roundNumber+ ": " + casesToOpen + " more case(s) to open.");
+
+    public static void displayRoundProgress(int roundNumber, int casesToOpen) {
+        System.out.println("ROUND " + roundNumber + ": " + casesToOpen + " more case(s) to open.");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
-    public static void displayFinalRound(int casesToOpen){
+
+    public static void displayFinalRound(int casesToOpen) {
         System.out.println("FINAL ROUND: OPEN " + casesToOpen + " CASES");
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
+
+    public static void phoneRing() {
+        System.out.println("\n\t\t*******************************");
+        System.out.println("\t\t*** RING RING *** RING RING ***");
+        System.out.println("\t\t*******************************");
+        System.out.println("\n\t\tThe Banker is calling!");
+    }
+
+    public static void deliverOffer(int currentOffer, int newOffer) {
+        if (newOffer > currentOffer) {
+            System.out.println("\n\t\tGood news! The Banker has raised his offer...");
+        } else {
+            System.out.println("\n\t\tBad news... the Banker has lowered his offer...");
+        }
+        System.out.println("\n\t\tThe Banker is offering: $" + newOffer + ".");
+    }
+
+    public static void displayDeal() {
+        System.out.println("\n\t\t*******************************");
+        System.out.println("\t\t             DEAL!!!           ");
+        System.out.println("\t\t*******************************");
+    }
+
+    public static void displayNoDeal() {
+        System.out.println("\n\t\t*******************************");
+        System.out.println("\t\t           NO DEAL!!!          ");
+        System.out.println("\t\t*******************************");
+    }
+
+    public static void endGame(boolean isGoodDeal) {
+        if (isGoodDeal) {
+            System.out.println("\n\t\tWhew, looks like you made a good deal! :)");
+        } else {
+            System.out.println("\n\t\tBetter luck next time! :(");
+        }
+        System.out.println("\n\n-----------------------------------------------------------------------------------");
+        System.out.println("                        Game over. Thank you for playing! ");
+        System.exit(1);
+    }
+
 
 }

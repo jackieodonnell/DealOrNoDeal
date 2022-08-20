@@ -1,31 +1,51 @@
 package com.dond.application;
 
+import com.dond.models.Banker;
 import com.dond.models.Case;
 import com.dond.ui.UserInput;
 import com.dond.ui.UserOutput;
-import java.io.IOException;
 import java.util.*;
 
 public class Game {
+    private Banker banker = new Banker();
     private Case[] cases = new Case[26];
+    private int playerCaseNumber = 0;
+    private int offer = 0;
+    boolean isDealAccepted = false;
     private List<Integer> values = Arrays.asList(1, 2, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000,
             25000, 50000,75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000);
-    private int playerCaseNumber = 0;
 
-    public Case[] getCases() {
-        return cases;
+    public void run(){
+        SoundHandler.runMusic("Resources/Intro.wav");
+        setupGame();
+        for (int i = 1; i < 8; i++) {
+            startRound(i);
+            banker.bankerCalling();
+            SoundHandler.runMusic("Resources/Thinking.wav");
+            offer = banker.makeOffer(cases, playerCaseNumber);
+            isDealAccepted = UserInput.promptDealOrNoDeal();
+            if (!isDealAccepted) {
+                SoundHandler.runMusic("Resources/NoDeal.wav");
+                UserOutput.displayNoDeal();
+            } else {
+                SoundHandler.runMusic("Resources/Outro.wav");
+                UserOutput.displayDeal();
+                dealAccepted(offer);
+                break;
+            }
+        }
+        if (!isDealAccepted){
+            SoundHandler.runMusic("Resources/Outro.wav");
+            finalOfferDeclined(offer);
+        }
     }
 
-    public int getPlayerCaseNumber() {
-        return playerCaseNumber;
-    }
-
-    public void startGame() {
+    public void setupGame() {
         caseSetup(cases);
         UserOutput.displayGameBoard(cases, values);
         playerCaseNumber = UserInput.selectFirstCase();
         cases[playerCaseNumber-1].setOpen(true);
-        UserInput.promptEnterToUpdateGameBoard();
+        UserInput.promptEnter("update the Game Board");
         updateGameBoard(playerCaseNumber);
     }
 
@@ -38,42 +58,54 @@ public class Game {
         }
     }
 
-    public void startRound(int roundNumber, int casesToOpen){
-        int casesPerRound = casesToOpen;
-        UserOutput.displayGameBoard(cases, values, playerCaseNumber);
-        UserOutput.displayNewRound(roundNumber, casesPerRound);
-        for (int i = 1; i <= casesPerRound; i++){
-            int selectedCaseNumber = UserInput.selectACase();
-            openCase(selectedCaseNumber);
-            casesToOpen--;
-            UserOutput.displayRoundProgress(roundNumber,casesToOpen);
+    public void startRound(int roundNumber){
+        int casesPerRound = 0;
+        if (roundNumber == 1) {
+            casesPerRound = 6;
+        } else if (roundNumber == 7) {
+            finalRound();
+        } else {
+            if (roundNumber == 6) {
+                casesPerRound = 1;
+            } else if (roundNumber == 5) {
+                casesPerRound = 3;
+            } else if (roundNumber >= 3) {
+                casesPerRound = 4;
+            } else if (roundNumber == 2) {
+                casesPerRound = 5;
+            }
+            UserOutput.displayGameBoard(cases, values, playerCaseNumber);
         }
-    }
-    public void finalRound(int roundNumber, int casesToOpen){
-        int casesPerRound = casesToOpen;
-        UserOutput.displayGameBoard(cases, values, playerCaseNumber);
-        UserOutput.displayFinalRound(casesPerRound);
-        for (int i = 1; i <= casesPerRound; i++){
+        UserOutput.displayNewRound(roundNumber, casesPerRound);
+        int casesToOpen = casesPerRound;
+        for (int i = 0; i < casesPerRound; i++){
             int selectedCaseNumber = UserInput.selectACase();
             openCase(selectedCaseNumber);
             casesToOpen--;
-            UserOutput.displayRoundProgress(roundNumber,casesToOpen);
+            if (casesToOpen > 0){
+                UserOutput.displayRoundProgress(roundNumber,casesToOpen);
+            }
         }
     }
 
-    public static void promptEnterToOpen(){
-        System.out.print("\n>>>Press \"ENTER\" to open the case>>>");
-        try {
-            System.in.read();
-        } catch (IOException e){
-            e.getMessage();
+    public void finalRound(){
+        int casesToOpen = 1;
+        UserOutput.displayGameBoard(cases, values, playerCaseNumber);
+        UserOutput.displayFinalRound(1);
+        for (int i = 1; i <= 1; i++){
+            int selectedCaseNumber = UserInput.selectACase();
+            openCase(selectedCaseNumber);
+            casesToOpen--;
+            UserOutput.displayRoundProgress(6,casesToOpen);
         }
     }
+
 
     public void openCase(int selectedCaseNumber){
         int value = cases[selectedCaseNumber-1].getCaseValue();
         cases[selectedCaseNumber-1].setOpen(true);
         System.out.println("\n\t\tCase # " + selectedCaseNumber + " contains $" + value +"." + "\n ");
+        UserInput.promptEnter("continue");
         updateGameBoard(selectedCaseNumber);
     }
 
@@ -91,17 +123,15 @@ public class Game {
     public void dealAccepted(int offerPrice){
         System.out.println("\n\t\tYou have accepted the Banker's offer for $" + offerPrice);
         System.out.println("\t\tNow let's find out how much money was inside your case...");
-        promptEnterToOpen();
+        UserInput.promptEnter("open your case");
         int playerCaseValue = cases[playerCaseNumber-1].getCaseValue();
         System.out.println("\n\t\tCase # " + playerCaseNumber + " contains $" + playerCaseValue);
-        if (playerCaseValue > offerPrice){
-            System.out.println("\n\t\tBetter luck next time! :(");
-        } else {
-            System.out.println("\n\t\tWhew, looks like you made a good deal! :)");
+        SoundHandler.runMusic("Resources/Outro.wav");
+        boolean isGoodDeal = false;
+        if (playerCaseValue < offerPrice) {
+            isGoodDeal = true;
         }
-        System.out.println("\n\n-----------------------------------------------------------------------------------");
-        System.out.println("                        Game over. Thank you for playing! ");
-        System.exit(1);
+        UserOutput.endGame(isGoodDeal);
     }
 
     public void finalOfferDeclined(int offerPrice){
@@ -111,18 +141,15 @@ public class Game {
         int finalCaseNumber = UserInput.selectFinalCase();
         openCase(finalCaseNumber);
         System.out.println("\t\tIt's time to open your case...");
-        promptEnterToOpen();
+        UserInput.promptEnter("open your case");
         int playerCaseValue = cases[playerCaseNumber-1].getCaseValue();
         System.out.println("\n\t\tCase # " + playerCaseNumber + " contains $" + playerCaseValue);
-        if (playerCaseValue < offerPrice){
-            System.out.println("\n\t\tBetter luck next time! :(");
-        } else {
-            System.out.println("\n\t\tWhew, looks like you made the right call! :)");
+        SoundHandler.runMusic("Resources/Outro.wav");
+        boolean isGoodDeal = false;
+        if (playerCaseValue > offerPrice) {
+            isGoodDeal = true;
         }
-        System.out.println("\n\n-----------------------------------------------------------------------------------");
-        System.out.println("                        Game over. Thank you for playing! ");
-        System.exit(1);
-
+        UserOutput.endGame(isGoodDeal);
     }
 
 }
