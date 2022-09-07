@@ -2,6 +2,7 @@ package com.dond.application;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class SoundHandler {
@@ -13,8 +14,8 @@ public class SoundHandler {
             clip.open(inputStream);
             clip.start();
 
-        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
-            e.printStackTrace();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e ) {
+            System.out.println("***Music File Unavailable***");
         }
 
     }
